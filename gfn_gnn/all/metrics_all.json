@@ -1,0 +1,76 @@
+{
+  "window_results": {
+    "all": {
+      "timestamp": "2025-11-10T21:12:52.257419",
+      "pool_size": 20,
+      "eval_count": 0,
+      "best_single_ic": 0.5067949891090393,
+      "test_ic": 0.09518003463745117,
+      "test_rank_ic": 0.07055997848510742,
+      "loss_history": [
+        73933.5390625,
+        76284.2109375,
+        73508.2421875,
+        69320.1484375,
+        75420.2578125,
+        71180.4921875,
+        76582.09375,
+        67587.90625,
+        72116.3125,
+        70689.7421875,
+        73000.8203125,
+        70170.421875,
+        72289.4609375,
+        71131.1484375,
+        72010.4140625,
+        68116.140625,
+        66489.3046875,
+        62635.27734375,
+        69032.40625,
+        63529.70703125,
+        68963.078125,
+        73229.1875,
+        69352.421875
+      ],
+      "run_dir": "E:\\factor\\alphagen\\output\\method_window_comparison\\gfn_gnn\\all\\gfn\\all\\tensorboard\\run_20251110_202434_seed42",
+      "window": "all",
+      "cached": false,
+      "pool_file": "output\\method_window_comparison\\gfn_gnn\\all\\gfn\\pool_all.json",
+      "train_period": {
+        "requested": {
+          "start": "2022-01-03",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2022-01-03",
+          "end": "2025-11-06"
+        },
+        "n_days": 1932,
+        "n_stocks": 44
+      },
+      "test_period": {
+        "requested": {
+          "start": "2025-08-07",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2025-08-07",
+          "end": "2025-11-06"
+        },
+        "n_days": 130,
+        "n_stocks": 44
+      }
+    }
+  },
+  "final_ensemble_size": 20,
+  "config": {
+    "alphagen_config": "output\\method_window_comparison\\gfn_gnn\\all\\alphagen_all.yaml",
+    "gfn_config": "output\\method_window_comparison\\gfn_gnn\\all\\gfn_all_gnn.yaml",
+    "seed": 42,
+    "skip_training": false
+  },
+  "multi_objective": {
+    "enabled": false,
+    "used": false
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "window_results": {
+    "6m": {
+      "timestamp": "2025-11-10T23:45:36.295987",
+      "pool_size": 20,
+      "eval_count": 0,
+      "best_single_ic": 0.15882965922355652,
+      "test_ic": 0.1479356586933136,
+      "test_rank_ic": 0.1381872296333313,
+      "loss_history": [
+        73949.9609375,
+        76379.5390625,
+        73631.90625,
+        69359.25,
+        75463.0078125,
+        71295.78125,
+        76568.0078125,
+        67651.4921875,
+        72212.9296875,
+        70789.3203125,
+        73161.53125,
+        70259.5390625,
+        71796.7421875,
+        71463.921875,
+        62367.05859375,
+        73214.484375,
+        67696.6953125,
+        62289.19140625,
+        69631.265625,
+        63856.05078125,
+        65075.24609375,
+        73990.2890625,
+        68491.1953125
+      ],
+      "run_dir": "E:\\factor\\alphagen\\output\\method_window_comparison\\gfn_gnn\\6m\\gfn\\6m\\tensorboard\\run_20251110_230629_seed42",
+      "window": "6m",
+      "cached": false,
+      "pool_file": "output\\method_window_comparison\\gfn_gnn\\6m\\gfn\\pool_6m.json",
+      "train_period": {
+        "requested": {
+          "start": "2025-05-07",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2025-05-07",
+          "end": "2025-11-06"
+        },
+        "n_days": 256,
+        "n_stocks": 44
+      },
+      "test_period": {
+        "requested": {
+          "start": "2025-08-07",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2025-08-07",
+          "end": "2025-11-06"
+        },
+        "n_days": 130,
+        "n_stocks": 44
+      }
+    }
+  },
+  "final_ensemble_size": 20,
+  "config": {
+    "alphagen_config": "output\\method_window_comparison\\gfn_gnn\\6m\\alphagen_6m.yaml",
+    "gfn_config": "output\\method_window_comparison\\gfn_gnn\\6m\\gfn_6m_gnn.yaml",
+    "seed": 42,
+    "skip_training": false
+  },
+  "multi_objective": {
+    "enabled": false,
+    "used": false
+  }
+}
