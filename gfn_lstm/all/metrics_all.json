@@ -1,0 +1,76 @@
+{
+  "window_results": {
+    "all": {
+      "timestamp": "2025-11-10T20:24:17.582568",
+      "pool_size": 20,
+      "eval_count": 0,
+      "best_single_ic": 0.514505922794342,
+      "test_ic": 0.06018078699707985,
+      "test_rank_ic": 0.059048086404800415,
+      "loss_history": [
+        74514.203125,
+        74798.9296875,
+        69032.328125,
+        70666.140625,
+        74803.2421875,
+        73045.8359375,
+        72967.1015625,
+        70845.0234375,
+        70590.1796875,
+        74000.3671875,
+        66506.59375,
+        71074.0390625,
+        71834.671875,
+        77278.7734375,
+        67282.0078125,
+        74235.0,
+        75244.9609375,
+        66391.4765625,
+        73706.2265625,
+        73434.234375,
+        68199.171875,
+        73705.1640625,
+        79494.4375
+      ],
+      "run_dir": "E:\\factor\\alphagen\\output\\method_window_comparison\\gfn_lstm\\all\\gfn\\all\\tensorboard\\run_20251110_195744_seed42",
+      "window": "all",
+      "cached": false,
+      "pool_file": "output\\method_window_comparison\\gfn_lstm\\all\\gfn\\pool_all.json",
+      "train_period": {
+        "requested": {
+          "start": "2022-01-03",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2022-01-03",
+          "end": "2025-11-06"
+        },
+        "n_days": 1932,
+        "n_stocks": 44
+      },
+      "test_period": {
+        "requested": {
+          "start": "2025-08-07",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2025-08-07",
+          "end": "2025-11-06"
+        },
+        "n_days": 130,
+        "n_stocks": 44
+      }
+    }
+  },
+  "final_ensemble_size": 20,
+  "config": {
+    "alphagen_config": "output\\method_window_comparison\\gfn_lstm\\all\\alphagen_all.yaml",
+    "gfn_config": "output\\method_window_comparison\\gfn_lstm\\all\\gfn_all_lstm.yaml",
+    "seed": 42,
+    "skip_training": false
+  },
+  "multi_objective": {
+    "enabled": false,
+    "used": false
+  }
+}

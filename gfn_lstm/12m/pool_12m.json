@@ -1,0 +1,113 @@
+{
+  "exprs": [
+    "Log(Add(Less(Sum($volume,20d),Log($open)),0.01))",
+    "TEMA(Sub(RSI(Sub(Div(-30.0,Greater(Mul($close,$volume),$volume)),Greater(Div(30.0,$low),-5.0)),30d),2.0),40d)",
+    "Ref(Pow(Sub(Less(Less(-5.0,$vwap),-2.0),-0.5),Div(WMA(Greater(-1.0,Sign($volume)),30d),-0.5)),50d)",
+    "Mean(Cov($close,$volume,20d),30d)",
+    "Greater(5.0,Greater(Delta($vwap,30d),30.0))",
+    "Cov(Pow($low,Less(2.0,Abs($close))),TEMA($close,10d),50d)",
+    "Pow(-0.5,Greater(Greater(Less($low,Mul(2.0,Sub(Div(Delta($high,10d),0.01),-2.0))),Pow(-2.0,$open)),0.01))",
+    "Kurt(Sign(Kurt(Add(1.0,Div(Abs(RSI(Div($vwap,10.0),10d)),$low)),20d)),30d)",
+    "Div($low,Mul(30.0,$close))",
+    "Add(-2.0,Sub(Pow(Skew(Delta($volume,30d),50d),-30.0),30.0))",
+    "Less(0.5,Div(Max(Greater(Less($open,-0.5),Sum(Pow(Add(Skew($low,20d),-1.0),10.0),40d)),20d),-2.0))",
+    "Sign(Kurt(Med(Greater(Less($open,-0.01),$close),20d),50d))",
+    "Mul(Add(Div(-0.01,Med(Mul(Skew(Pow(Less($close,1.0),-1.0),10d),-10.0),30d)),-5.0),CSRank(Log($volume)))",
+    "Abs(Corr(Add(Pow(-0.5,Mul($high,Greater($vwap,-0.01))),0.01),$volume,20d))",
+    "Var(Add(Log(Mean($close,10d)),5.0),40d)",
+    "Add(Pow(Mul(Mul(Sign($close),$vwap),Med(Sub(2.0,$high),30d)),-30.0),Div(Less(1.0,$close),-2.0))",
+    "Pow(0.01,Delta($close,20d))",
+    "Div(0.5,Max(Greater(Mul(Kurt($close,50d),5.0),-2.0),10d))",
+    "Div(0.01,Div(Abs($low),$open))",
+    "TEMA(Add(Mul(0.5,RSI($volume,30d)),1.0),50d)"
+  ],
+  "weights": [
+    0.13440406322479248,
+    0.03621732443571091,
+    0.03097928687930107,
+    0.05946028605103493,
+    0.03385518863797188,
+    0.044224515557289124,
+    0.03604666888713837,
+    0.037795115262269974,
+    0.06069573387503624,
+    0.032430727034807205,
+    0.06045413389801979,
+    0.0495527982711792,
+    0.03457292169332504,
+    0.04358500987291336,
+    0.1113627552986145,
+    0.07266886532306671,
+    0.049498241394758224,
+    0.03756192699074745,
+    0.06879226863384247,
+    0.09224316477775574
+  ],
+  "window_results": {
+    "12m": {
+      "timestamp": "2025-11-10T21:40:10.832348",
+      "pool_size": 20,
+      "eval_count": 0,
+      "best_single_ic": 0.13440406322479248,
+      "test_ic": 0.026569757610559464,
+      "test_rank_ic": -0.010317126289010048,
+      "loss_history": [
+        74543.453125,
+        74833.1328125,
+        69154.8359375,
+        70710.3671875,
+        74811.7578125,
+        73107.1953125,
+        73005.296875,
+        70820.2421875,
+        70616.625,
+        74056.3671875,
+        66576.421875,
+        71108.640625,
+        71881.9609375,
+        77370.7109375,
+        67435.734375,
+        74267.796875,
+        75343.8671875,
+        66702.78125,
+        73737.578125,
+        73590.890625,
+        68406.015625,
+        73860.5,
+        79539.8515625
+      ],
+      "run_dir": "E:\\factor\\alphagen\\output\\method_window_comparison\\gfn_lstm\\12m\\gfn\\12m\\tensorboard\\run_20251110_211352_seed42",
+      "window": "12m",
+      "cached": false,
+      "pool_file": "output\\method_window_comparison\\gfn_lstm\\12m\\gfn\\pool_12m.json",
+      "train_period": {
+        "requested": {
+          "start": "2024-11-07",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2024-11-07",
+          "end": "2025-11-06"
+        },
+        "n_days": 500,
+        "n_stocks": 44
+      },
+      "test_period": {
+        "requested": {
+          "start": "2025-08-07",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2025-08-07",
+          "end": "2025-11-06"
+        },
+        "n_days": 130,
+        "n_stocks": 44
+      }
+    }
+  },
+  "multi_objective": {
+    "enabled": false,
+    "used": false
+  }
+}

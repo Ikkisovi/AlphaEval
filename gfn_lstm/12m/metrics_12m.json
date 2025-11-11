@@ -1,0 +1,76 @@
+{
+  "window_results": {
+    "12m": {
+      "timestamp": "2025-11-10T21:40:10.832348",
+      "pool_size": 20,
+      "eval_count": 0,
+      "best_single_ic": 0.13440406322479248,
+      "test_ic": 0.026569757610559464,
+      "test_rank_ic": -0.010317126289010048,
+      "loss_history": [
+        74543.453125,
+        74833.1328125,
+        69154.8359375,
+        70710.3671875,
+        74811.7578125,
+        73107.1953125,
+        73005.296875,
+        70820.2421875,
+        70616.625,
+        74056.3671875,
+        66576.421875,
+        71108.640625,
+        71881.9609375,
+        77370.7109375,
+        67435.734375,
+        74267.796875,
+        75343.8671875,
+        66702.78125,
+        73737.578125,
+        73590.890625,
+        68406.015625,
+        73860.5,
+        79539.8515625
+      ],
+      "run_dir": "E:\\factor\\alphagen\\output\\method_window_comparison\\gfn_lstm\\12m\\gfn\\12m\\tensorboard\\run_20251110_211352_seed42",
+      "window": "12m",
+      "cached": false,
+      "pool_file": "output\\method_window_comparison\\gfn_lstm\\12m\\gfn\\pool_12m.json",
+      "train_period": {
+        "requested": {
+          "start": "2024-11-07",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2024-11-07",
+          "end": "2025-11-06"
+        },
+        "n_days": 500,
+        "n_stocks": 44
+      },
+      "test_period": {
+        "requested": {
+          "start": "2025-08-07",
+          "end": "2025-11-07"
+        },
+        "actual": {
+          "start": "2025-08-07",
+          "end": "2025-11-06"
+        },
+        "n_days": 130,
+        "n_stocks": 44
+      }
+    }
+  },
+  "final_ensemble_size": 20,
+  "config": {
+    "alphagen_config": "output\\method_window_comparison\\gfn_lstm\\12m\\alphagen_12m.yaml",
+    "gfn_config": "output\\method_window_comparison\\gfn_lstm\\12m\\gfn_12m_lstm.yaml",
+    "seed": 42,
+    "skip_training": false
+  },
+  "multi_objective": {
+    "enabled": false,
+    "used": false
+  }
+}
