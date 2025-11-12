@@ -57,6 +57,8 @@ export OPENAI_API_KEY="your-key"
 python run_pool_eval.py --enable_llm --output_dir results_with_llm/
 ```
 
+**Important**: The `--enable_llm` flag is required to enable LLM evaluation. Even if you have `OPENAI_API_KEY` set in your environment for other tools, LLM evaluation will not run unless you explicitly use this flag. This prevents unexpected API costs.
+
 ### 3. Evaluate Specific Pools Only
 ```bash
 python run_pool_eval.py --pools alphagen gfn_lstm --output_dir results_filtered/

@@ -113,10 +113,16 @@ def evaluate_factor_pool(
         daily_normalize=daily_normalize
     )
 
+    # Enable LLM only if API key is provided
+    enable_llm = api_key is not None
+
     if single_factor_mode:
         # Evaluate each factor individually
         print("Running single factor evaluation...")
-        results = evaluator.run_single_factor(api_key=api_key)
+        results = evaluator.run_single_factor(
+            enable_llm=enable_llm,
+            api_key=api_key
+        )
         return {
             'mode': 'single_factor',
             'results': results,
@@ -125,7 +131,10 @@ def evaluate_factor_pool(
     else:
         # Evaluate combined factor pool
         print("Running combined evaluation...")
-        evaluator.run(api_key=api_key)
+        evaluator.run(
+            enable_llm=enable_llm,
+            api_key=api_key
+        )
 
         results = {
             'mode': 'combined',

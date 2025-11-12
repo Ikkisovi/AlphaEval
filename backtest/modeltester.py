@@ -310,7 +310,7 @@ class AlphaEval:
         self.llm_avg_score = sum(self.llm_scores) / len(self.llm_scores) if self.llm_scores else 0.0
 
 
-    def run(self, api_key: Optional[str] = None):
+    def run(self, enable_llm: bool = False, api_key: Optional[str] = None):
         self.fetch_data()
 
         all_data = self.alphacombo.join(self.label_data, how="inner").join(self.noisecombo1, how="inner").join(self.noisecombo2, how="inner").dropna()
@@ -348,13 +348,19 @@ class AlphaEval:
 
         self.calculate_covariance_entropy()
 
-        # Try to get LLM scores, but don't fail if it doesn't work
-        try:
-            self.LLM_scores(api_key=api_key)
-        except Exception as e:
-            print(f"Warning: LLM scoring failed: {e}")
+        # Only call LLM scores if explicitly enabled
+        if enable_llm:
+            try:
+                self.LLM_scores(api_key=api_key)
+            except Exception as e:
+                print(f"Warning: LLM scoring failed: {e}")
+                self.llm_scores = [np.nan] * len(self.factor_expressions)
+                self.llm_explanations = ["LLM scoring error"] * len(self.factor_expressions)
+                self.llm_avg_score = np.nan
+        else:
+            # Set LLM scores to NaN when disabled
             self.llm_scores = [np.nan] * len(self.factor_expressions)
-            self.llm_explanations = ["LLM scoring error"] * len(self.factor_expressions)
+            self.llm_explanations = ["LLM evaluation disabled"] * len(self.factor_expressions)
             self.llm_avg_score = np.nan
 
     def summary(self):
@@ -367,17 +373,22 @@ class AlphaEval:
         print("LLM: ", self.llm_avg_score)
 
 
-    def run_single_factor(self, api_key: Optional[str] = None):
+    def run_single_factor(self, enable_llm: bool = False, api_key: Optional[str] = None):
         self.fetch_data()
         print("Finish fetching data.")
 
-        # Try to get LLM scores, but don't fail if it doesn't work
-        try:
-            self.LLM_scores(api_key=api_key)
-        except Exception as e:
-            print(f"Warning: LLM scoring failed: {e}")
+        # Only call LLM scores if explicitly enabled
+        if enable_llm:
+            try:
+                self.LLM_scores(api_key=api_key)
+            except Exception as e:
+                print(f"Warning: LLM scoring failed: {e}")
+                self.llm_scores = [np.nan] * len(self.factor_expressions)
+                self.llm_explanations = ["LLM scoring error"] * len(self.factor_expressions)
+        else:
+            # Set LLM scores to NaN when disabled
             self.llm_scores = [np.nan] * len(self.factor_expressions)
-            self.llm_explanations = ["LLM scoring error"] * len(self.factor_expressions)
+            self.llm_explanations = ["LLM evaluation disabled"] * len(self.factor_expressions)
 
         res = []
         for i, f in enumerate(self.factor_expressions):

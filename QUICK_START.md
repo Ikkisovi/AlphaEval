@@ -38,10 +38,11 @@ LLM:  nan
 ```
 **Why it happened**: API key was hardcoded as `"Your own LLM key"`
 
-**Solution**: Now supports API key from:
-1. Environment variable `OPENAI_API_KEY`
-2. Environment variable `LLM_API_KEY`
-3. Command line `--api_key`
+**Solution**: Now requires explicit opt-in via `--enable_llm` flag:
+1. Use `--enable_llm` flag to enable LLM evaluation
+2. API key from `OPENAI_API_KEY` or `LLM_API_KEY` environment variable
+3. Or pass via command line `--api_key`
+4. **Without `--enable_llm`, no API calls are made even if key is set**
 
 ## Setup (One Time)
 

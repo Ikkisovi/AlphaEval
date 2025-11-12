@@ -205,7 +205,10 @@ def evaluate_pool(
         # Run evaluation
         if single_factor:
             print("Running single factor evaluation...")
-            factor_results = evaluator.run_single_factor(api_key=api_key if enable_llm else None)
+            factor_results = evaluator.run_single_factor(
+                enable_llm=enable_llm,
+                api_key=api_key if enable_llm else None
+            )
 
             results = {
                 'mode': 'single_factor',
@@ -214,7 +217,10 @@ def evaluate_pool(
             }
         else:
             print("Running combined evaluation...")
-            evaluator.run(api_key=api_key if enable_llm else None)
+            evaluator.run(
+                enable_llm=enable_llm,
+                api_key=api_key if enable_llm else None
+            )
 
             results = {
                 'mode': 'combined',
