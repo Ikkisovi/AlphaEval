@@ -1,1 +1,5 @@
-__pycache__
+__pycache__/
+.archive/
+chronos_models/
+AlphaSAGE/
+*.pkl

@@ -28,6 +28,10 @@ from pathlib import Path
 from typing import List, Dict, Optional
 import sys
 import os
+import warnings
+
+# Suppress warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
 
 # Add backtest module to path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'backtest'))
@@ -71,7 +75,8 @@ def evaluate_factor_pool(
     test_end: str = "2023-12-31",
     instruments: Optional[List[str]] = None,
     daily_normalize: bool = True,
-    single_factor_mode: bool = False
+    single_factor_mode: bool = False,
+    api_key: Optional[str] = None
 ) -> Dict:
     """
     Evaluate a pool of factors using AlphaEval framework.
@@ -108,10 +113,16 @@ def evaluate_factor_pool(
         daily_normalize=daily_normalize
     )
 
+    # Enable LLM only if API key is provided
+    enable_llm = api_key is not None
+
     if single_factor_mode:
         # Evaluate each factor individually
         print("Running single factor evaluation...")
-        results = evaluator.run_single_factor()
+        results = evaluator.run_single_factor(
+            enable_llm=enable_llm,
+            api_key=api_key
+        )
         return {
             'mode': 'single_factor',
             'results': results,
@@ -120,7 +131,10 @@ def evaluate_factor_pool(
     else:
         # Evaluate combined factor pool
         print("Running combined evaluation...")
-        evaluator.run()
+        evaluator.run(
+            enable_llm=enable_llm,
+            api_key=api_key
+        )
 
         results = {
             'mode': 'combined',
@@ -194,6 +208,10 @@ def main():
     parser.add_argument('--feature_store', type=str, default=None,
                         help='Path to AM/PM feature store directory')
 
+    # LLM options
+    parser.add_argument('--api_key', type=str, default=None,
+                        help='OpenAI API key for LLM evaluation (or set OPENAI_API_KEY env var)')
+
     args = parser.parse_args()
 
     # Load factor pool
@@ -206,6 +224,9 @@ def main():
         weights = pool_data['weights']
         print(f"Using {len(weights)} weights from pool file")
 
+    # Get API key
+    api_key = args.api_key or os.environ.get('OPENAI_API_KEY') or os.environ.get('LLM_API_KEY')
+
     # Run evaluation
     try:
         results = evaluate_factor_pool(
@@ -216,7 +237,8 @@ def main():
             test_start=args.test_start,
             test_end=args.test_end,
             daily_normalize=not args.no_normalize,
-            single_factor_mode=args.single_factor
+            single_factor_mode=args.single_factor,
+            api_key=api_key
         )
 
         # Add metadata

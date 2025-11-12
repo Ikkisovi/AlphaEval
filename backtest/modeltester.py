@@ -8,9 +8,13 @@ from qlib.data import D
 from typing import List, Optional
 from combo import WeightCalculator
 from qlib.data.data import LocalDatasetProvider
+import os
+import warnings
 
-# import warnings
-# warnings.filterwarnings("ignore")
+# Suppress specific warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*All-NaN slice encountered.*")
+warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*overflow encountered in cast.*")
+warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*invalid value encountered.*")
 
 def zscore(df: pd.DataFrame) -> pd.DataFrame:
     means = df.mean(axis=0, skipna=True)
@@ -232,9 +236,23 @@ class AlphaEval:
         self,
         model: str = "gpt-4o",
         temperature: float = 0.2,
+        api_key: Optional[str] = None,
     ) -> None:
+        # Try to get API key from multiple sources
+        if api_key is None:
+            api_key = os.environ.get("OPENAI_API_KEY")
+        if api_key is None:
+            api_key = os.environ.get("LLM_API_KEY")
+        if api_key is None or api_key == "Your own LLM key":
+            print("Warning: No valid API key found. LLM scores will be set to NaN.")
+            print("Please set OPENAI_API_KEY environment variable or pass api_key parameter.")
+            self.llm_scores = [np.nan] * len(self.factor_expressions)
+            self.llm_explanations = ["No API key configured"] * len(self.factor_expressions)
+            self.llm_avg_score = np.nan
+            return
+
         client = OpenAI(
-            api_key="Your own LLM key",
+            api_key=api_key,
         )
 
         prompt = (
@@ -292,7 +310,7 @@ class AlphaEval:
         self.llm_avg_score = sum(self.llm_scores) / len(self.llm_scores) if self.llm_scores else 0.0
 
 
-    def run(self):
+    def run(self, enable_llm: bool = False, api_key: Optional[str] = None):
         self.fetch_data()
 
         all_data = self.alphacombo.join(self.label_data, how="inner").join(self.noisecombo1, how="inner").join(self.noisecombo2, how="inner").dropna()
@@ -320,7 +338,7 @@ class AlphaEval:
         probs_prev = probs.shift(1)
         eps = 1e-8
         kl = (probs * np.log((probs + eps) / (probs_prev + eps))).sum(axis=1)
-        rre_series = kl.dropna() 
+        rre_series = kl.dropna()
         rre_series = 1 / (1 + rre_series)
         self.ic = round(ic_series.mean(), 3)
         self.rankic = round(rank_ic_series.mean(), 3)
@@ -329,7 +347,21 @@ class AlphaEval:
         self.pfs2 = round(pfs2_series.mean(), 6)
 
         self.calculate_covariance_entropy()
-        self.LLM_scores()
+
+        # Only call LLM scores if explicitly enabled
+        if enable_llm:
+            try:
+                self.LLM_scores(api_key=api_key)
+            except Exception as e:
+                print(f"Warning: LLM scoring failed: {e}")
+                self.llm_scores = [np.nan] * len(self.factor_expressions)
+                self.llm_explanations = ["LLM scoring error"] * len(self.factor_expressions)
+                self.llm_avg_score = np.nan
+        else:
+            # Set LLM scores to NaN when disabled
+            self.llm_scores = [np.nan] * len(self.factor_expressions)
+            self.llm_explanations = ["LLM evaluation disabled"] * len(self.factor_expressions)
+            self.llm_avg_score = np.nan
 
     def summary(self):
         print("IC: ", self.ic)
@@ -341,10 +373,23 @@ class AlphaEval:
         print("LLM: ", self.llm_avg_score)
 
 
-    def run_single_factor(self):
+    def run_single_factor(self, enable_llm: bool = False, api_key: Optional[str] = None):
         self.fetch_data()
         print("Finish fetching data.")
-        self.LLM_scores()
+
+        # Only call LLM scores if explicitly enabled
+        if enable_llm:
+            try:
+                self.LLM_scores(api_key=api_key)
+            except Exception as e:
+                print(f"Warning: LLM scoring failed: {e}")
+                self.llm_scores = [np.nan] * len(self.factor_expressions)
+                self.llm_explanations = ["LLM scoring error"] * len(self.factor_expressions)
+        else:
+            # Set LLM scores to NaN when disabled
+            self.llm_scores = [np.nan] * len(self.factor_expressions)
+            self.llm_explanations = ["LLM evaluation disabled"] * len(self.factor_expressions)
+
         res = []
         for i, f in enumerate(self.factor_expressions):
             print(i)
